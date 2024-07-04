@@ -1,0 +1,15 @@
+.Menu{
+    display: flex;
+    list-style: none;
+    flex-flow: column;
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    align-items: center;
+}
+
+@media (min-width : 500px) {
+    .Menu {
+        flex-flow: row; /* 500px ees hetervel tom delgetstei baiwal ajillana. */
+    }
+}
