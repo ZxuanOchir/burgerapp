@@ -3,6 +3,7 @@ import Burger from "../../components/Burger";
 import BuildControls from "../../components/BuildControls";
 import Modal from "../../components/General/Modal";
 import OrderSummary from "../../components/OrderSummary";
+import axios from '../../axios-orders';
 
 
 const INGREDIENT_PRICES = {
@@ -31,10 +32,38 @@ class BurgerPage extends Component {
         totalPrice : 2000,
         purchasing : false,
         confirmOrder : false,
+        lastCustomerName: 'N/A',
+    }
+
+    componentDidMount = () => {
+        axios.get('/orders.json').then(response => {
+            let arr = Object.entries(response.data)
+            arr = arr.reverse();
+            arr.forEach(el => {
+                console.log(el[1].hayag.name + '===>' + el[1].dun);
+            });
+
+            const lastOrder = arr[arr.length - 1][1];
+            //console.log(lastOrder);
+
+            this.setState({ingredients : lastOrder.orts, totalPrice : lastOrder.dun, lastCustomerName : lastOrder.hayag.name})
+        })
     }
 
     continueOrder = () => {
-        console.log('clicked continue');
+        const order = {
+            orts : this.state.ingredients,
+            dun: this.state.totalPrice,
+            hayag : {
+                name : 'Amaraa',
+                city: 'UlaanBaatar',
+                street : '10r horoolol'
+            }
+        }
+
+        axios.post('/orders.json', order).then(response => {
+            alert("Successfully saved!");
+        });
     }
 
     showConfirmModal = () => {
@@ -87,6 +116,9 @@ class BurgerPage extends Component {
                     ingredientNames={INGREDIENT_NAMES} 
                     chosenIngredients={this.state.ingredients}/>
                 </Modal>
+                <p style={{width:'100%', textAlign:"center", fontSize: '28px'}}>
+                    Сүүлчийн захиалагч : {this.state.lastCustomerName}
+                </p>
                 <Burger orts = {this.state.ingredients}/>
 
                 <BuildControls showConfirmModal = {this.showConfirmModal} ingredientNames={INGREDIENT_NAMES} disabled={!this.state.purchasing} price={this.state.totalPrice} disabledIngredients={disabledIngredients} ortsNemeh={this.ortsNemeh} ortsHasah={this.ortsHasah}/>

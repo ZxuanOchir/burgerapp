@@ -15,7 +15,7 @@
     font-size: 20px;
 }
 
-@media (max-width : 500px){ /*niit px ni 500 baiwal ajillana...*/
+@media (max-width : 500px){ /*niit px ni 500aas hetervel ajillana...*/
     .HideOnMobile{
         display: none;
     }
