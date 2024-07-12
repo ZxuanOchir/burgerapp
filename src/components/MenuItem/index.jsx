@@ -1,14 +1,18 @@
 import React from "react";
-import css from './style.module.css'
+import css from './style.module.css';
+import { NavLink } from "react-router-dom";
 
 const MenuItem = (props) => {
     return (
         <li className={css.MenuItem}>
-            <a className={props.active ? css.active : null} href={props.link}>
+            <NavLink
+                className={({ isActive }) => (isActive ? css.active : undefined)}
+                to={props.link}
+            >
                 {props.children}
-            </a>
+            </NavLink>
         </li>
-    )
+    );
 }
 
 export default MenuItem;
