@@ -8,14 +8,14 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 20px;
+    padding: 0 25px;
     box-sizing: border-box;
     z-index: 90;
     color: white;
     font-size: 20px;
 }
 
-@media (max-width : 500px){ /*niit px ni 500aas hetervel ajillana...*/
+@media (max-width : 500px){ /*niit px ni 500px baiwal ajillana...*/
     .HideOnMobile{
         display: none;
     }

@@ -6,6 +6,9 @@ import SideBar from '../../components/SideBar'
 import { Component } from 'react'
 import OrderPage from '../OrderPage'
 import { Route, Routes } from 'react-router-dom'
+import  ShippingPage from '../ShippingPage'
+import Contact from '../ContactPage'
+
 
 class App extends Component {
 
@@ -18,6 +21,8 @@ class App extends Component {
       return {showSideBar: !prevState.showSideBar} /* prevState = true = false */
     });
   }
+
+
   
   render() {
     return (
@@ -26,8 +31,10 @@ class App extends Component {
     <SideBar showSideBar={this.state.showSideBar} toggleSideBar={this.toggleSideBar}/>
     <main className={css.Content}>
       <Routes>
-      <Route path='/' element={<BurgerPage />}/>
-      <Route path='/orders' element={<OrderPage />}/>
+          <Route path='/' element={<BurgerPage />}/>
+          <Route path='ship/*' element={<ShippingPage />}/>
+          <Route path="ship/contact" element={<Contact />} />
+          <Route path='/orders' element={<OrderPage />}/>
       </Routes>
     </main>
     </>

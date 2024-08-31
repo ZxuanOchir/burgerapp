@@ -5,7 +5,8 @@ import Spinner from '../../components/General/Spinner'
 import Order from '../../components/Order'
 
 
-export default class OrderPage extends Component {
+
+class OrderPage extends Component {
 
     state = {
         orders : [],
@@ -19,7 +20,7 @@ export default class OrderPage extends Component {
             .then(response => {
                 this.setState({orders : Object.entries(response.data).reverse()});
             })
-            .catch(err => console.log(err))
+            .catch(алдаа => console.log(алдаа))
             .finally(() => {
             this.setState({loading : false});
         });
@@ -38,5 +39,7 @@ export default class OrderPage extends Component {
             </div>
         )
     }
-
 }
+
+
+export default OrderPage;

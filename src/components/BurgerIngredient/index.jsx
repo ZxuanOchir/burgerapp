@@ -14,7 +14,7 @@ const BurgerIngredient = (props) => {
     if(props.type === 'salad') return <div className={css.Salad}></div>;
     if(props.type === 'bacon') return <div className={css.Bacon}></div>;
     if(props.type === 'meat') return <div className={css.Meat}></div>;
-    if(props.type === 'cheese') return <div className={css.Cheese}></div>;
+    if(props.type === 'cheese') return <div className={css.Cheese}> </div>;
     if(props.type === 'bread-bottom') return <div className={css.BreadBottom}></div>;
     return <div>...</div>
 }

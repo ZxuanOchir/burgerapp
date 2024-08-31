@@ -1,0 +1,15 @@
+.ShippingPage{
+    width: 80%;
+    margin: 20px auto;
+    text-align: center;
+}
+
+.ShippingPage button{
+    font-size: 24px;
+}
+
+@media (min-width : 600px){ /*600 tseg deer irhed shipping pasge dahij 700 tseg ees tomrohgu*/
+    .ShippingPage{
+        width: 700px;
+    }
+}

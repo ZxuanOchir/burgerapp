@@ -1,0 +1,19 @@
+.Contact{
+    width: 100%;
+    border: 1px solid #eee;
+    box-shadow: 0 2px 3px #ccc;
+    box-sizing: border-box;
+    padding: 10px;
+    text-align: center;
+}
+
+.Contact input{
+    display: block;
+    font-size: 18px;
+    padding: 5px;
+    margin: 10px auto;
+}
+
+.Contact button { 
+    font-size: 18px;
+}

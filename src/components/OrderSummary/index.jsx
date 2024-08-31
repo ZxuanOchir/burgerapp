@@ -1,5 +1,6 @@
 
 import React from "react";
+import { connect } from "react-redux";
 import Button from "../General/Button";
 
 const OrderSummary = (props) => {
@@ -19,6 +20,14 @@ const OrderSummary = (props) => {
             <Button clicked={props.onContinue} type="Success" text="ҮРГЭЛЖЛҮҮЛЭХ"/>
         </div>
     )
+};
+
+const mapStateToProps = state => {
+    return {
+        chosenIngredients : state.ingredients,
+        ingredientNames : state.ingredientNames,
+        price : state.totalPrice
+    }
 }
 
-export default OrderSummary;
+export default connect(mapStateToProps)(OrderSummary);
