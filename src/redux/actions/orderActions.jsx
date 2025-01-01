@@ -54,7 +54,7 @@ export const saveOrder = (newOrder) => {
             dispatch(saveOrderStart());
 
             //const token = getState().signupLoginReducer.token
-            const token = getState().signupLoginReducer.token;
+            const token = localStorage.getItem("token");
 
             //Firebase save
              axios.post(`/orders.json?auth=${token}`, newOrder) // ? & & & query parameters
