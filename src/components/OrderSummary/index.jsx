@@ -12,7 +12,7 @@ const OrderSummary = (props) => {
                 {Object.keys(props.chosenIngredients).map(el => 
                 <li key={el}>
                     {props.ingredientNames[el]} : {props.chosenIngredients[el]}
-                </li>)}
+                </li>)} {/* Object to ===> Array ["a", "b", "c"] */}
             </ul>
             <p><strong>Захиалгын дүн {props.price}₮</strong></p>
             <p>Үргэлжлүүлэх үү?</p>
@@ -24,9 +24,9 @@ const OrderSummary = (props) => {
 
 const mapStateToProps = state => {
     return {
-        chosenIngredients : state.ingredients,
-        ingredientNames : state.ingredientNames,
-        price : state.totalPrice
+        chosenIngredients : state.burgerReducer.ingredients,
+        ingredientNames : state.burgerReducer.ingredientNames,
+        price : state.burgerReducer.totalPrice
     }
 }
 

@@ -5,11 +5,12 @@ import * as actions from "../../redux/actions/burgerActions"
 import BuildControl from "../BuildControl";
 const BuildControls = (props) => {
 
-    const disabledIngredients = {...props.burgeriinOrts};
+    const disabledIngredients = {...props.burgeriinOrts}; //spread copy all
 
     for(let orts in disabledIngredients) {
        disabledIngredients[orts] = disabledIngredients[orts] <= 0;
-       //console.log(orts + '===>' + disabledIngredients[orts]); 
+       console.log(orts + '===>' + disabledIngredients[orts]); 
+       //console.log(orts)
        //0 = true 0 < 1 = false
     }
     return (
@@ -24,7 +25,7 @@ const BuildControls = (props) => {
                     type={el} 
                     orts={props.ingredientNames[el]}
                 />)}
-                {/*  ['bacon', 'cheese', 'meat', 'salad'] */}
+                {/*  ['bacon', 'cheese', 'meat', 'salad'] object ===> array  */}
                     <button onClick={props.showConfirmModal} disabled={!props.purchasing} className={css.OrderButton}>ЗАХИАЛАХ</button>
                 </div>
             )
@@ -32,10 +33,10 @@ const BuildControls = (props) => {
 
 const mapStateToProps = state => {
     return {
-        burgeriinOrts : state.ingredients,
-        price : state.totalPrice,
-        purchasing : state.purchasing, 
-        ingredientNames : state.ingredientNames
+        burgeriinOrts : state.burgerReducer.ingredients,
+        price : state.burgerReducer.totalPrice,
+        purchasing : state.burgerReducer.purchasing, 
+        ingredientNames : state.burgerReducer.ingredientNames
     }
 } //state iig props ruu huvirga
 
@@ -46,6 +47,5 @@ const mapDispatchToProps = dispatch => {
     }// dispatch aar orj bui action iig props ruu damjuul
 }
 //actions ==> connect ==> reactContextApi(Provider) ==> store(Reducers)
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(BuildControls);

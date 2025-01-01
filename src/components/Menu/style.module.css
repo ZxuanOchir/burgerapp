@@ -6,7 +6,7 @@
     padding: 0;
     height: 100%;
     align-items: center;
-}
+}/*mobile first*/
 
 @media (min-width : 500px) {
     .Menu {

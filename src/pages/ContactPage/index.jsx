@@ -1,106 +1,112 @@
-// Contact.jsx
-import React from "react";
-import { useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Button from "../../components/General/Button";
-import css from './style.module.css'
-import axios from "../../axios-orders";
+import css from './style.module.css';
 import Spinner from "../../components/General/Spinner";
 import { connect } from "react-redux";
+import * as actions from "../../redux/actions/orderActions";
 
 const ContactPage = (props) => {
-    const location = useLocation();
     const navigate = useNavigate(); 
 
     const [hayag, setHayag] = useState({
-        name : '',
-        city : '',
-        street : '',
-    })
+        name: '',
+        city: '',
+        street: ''
+    });
 
     const [loader, setLoader] = useState(false);
 
-
-
     const goBack = () => {
-        navigate("/", {replace : true}); // Go back to the previous page
+        navigate("/", {replace: true}); // Go back to home page
     };
 
-    const changeName = (e) => {
+    const handleChange = (e) => {
+        const { name, value } = e.target;
         setHayag(prevState => ({
             ...prevState,
-            name: e.target.value
-        }));
-    }
-
-    const changeCity = (e) => {
-        setHayag(prevState => ({
-            ...prevState,
-            city: e.target.value
+            [name]: value
         }));
     };
 
-    const changeAddress = (e) => {
-        setHayag(prevState => ({
-            ...prevState,
-            street: e.target.value
-        }));
-    }
+    useEffect(() => {
+        if (props.newOrderStatus.finished) {
+            if (!props.newOrderStatus.error) {
+                navigate('/orders', { replace: true });
 
+                props.resetOrderStatus();
+            } else {
+                alert(`Error: ${props.newOrderStatus.error}`);
+            }
+        }
+    }, [props.newOrderStatus, navigate]);
+    
+    const newOrder = () => {
 
-
-    const saveOrder = () => {
         const order = {
-            orts : props.ingredients,
+            orts: props.ingredients,
             dun: props.price,
-            hayag : {
-                name : hayag.name,
+            userId: props.userId,
+            hayag: {
+                name: hayag.name,
                 city: hayag.city,
-                street : hayag.street,
+                street: hayag.street,
             }
         };
 
-        setLoader(true);
-        
-        axios.post('/orders.json', order)
-        .then(response => {
-            console.log('Saved firebase', response.data);
-        })
-        .catch(err => console.log('Error saving order',err))
-        .finally(() => {
-            setLoader(false);
-            navigate('/orders', {replace : true});
-        });
-    }
-    
+        props.saveOrderAction(order)
+
+        setHayag({name : '', city: '', street: ''});
+    };
+
     return (
         <div className={css.Contact}>
             <h1>Хүргэлтийн Мэдээлэл</h1>
+            <h1>Дүн: {props.price}₮</h1>
 
-            <h1>Дүн : {props.price}</h1>
-            
+            <div>
+                {props.newOrderStatus.error && `Захиалгыг хадгалах явцад алдаа гарлаа : ${props.newOrderStatus.error}`}
+            </div>
+            {props.newOrderStatus.saving && <Spinner />}
 
-            {loader && <Spinner />}
+            <input 
+                onChange={handleChange} 
+                type="text" 
+                name="name" 
+                placeholder="Таны нэр" 
+                value={hayag.name} 
+            />
+            <input 
+                onChange={handleChange} 
+                type="text" 
+                name="city" 
+                placeholder="Таны хот" 
+                value={hayag.city} 
+            />
+            <input 
+                onChange={handleChange} 
+                type="text" 
+                name="street" 
+                placeholder="Таны гэрийн хаяг" 
+                value={hayag.street} 
+            />
 
-            <input onChange={changeName} type="text" name="name" placeholder="Таны нэр" value={hayag.name}/>
-
-            <input onChange={changeCity} type="text" name="city" placeholder="Таны хот" value={hayag.city}/>
-
-            <input onChange={changeAddress} type="text" name="address" placeholder="Таны гэрийн хаяг" value={hayag.address}/>
-
-        
-            <Button clicked={goBack} text="Цуцлах" type="Danger" />
-
-            <Button clicked={saveOrder} text="Илгээх" type="Success" />
+            <Button clicked={goBack} text="Цуцлах" type="Danger" disabled={loader} />
+            <Button clicked={newOrder} text="Илгээх" type="Success" disabled={loader} />
         </div>
     );
 };
-const mapStateToProps = state => {
-    return {
-        price : state.totalPrice,
-        ingredients : state.ingredients
-    }
-}
 
+const mapStateToProps = (state) => ({
+    price: state.burgerReducer.totalPrice,
+    ingredients: state.burgerReducer.ingredients,
+    newOrderStatus: state.orderReducer.newOrder,
+    userId: state.signupLoginReducer.userId,
+});
 
-export default connect(mapStateToProps)(ContactPage);
+const mapDispatchToProps = (dispatch) => ({
+    saveOrderAction: (newOrder) => dispatch(actions.saveOrder(newOrder)),
+    resetOrderStatus: () => dispatch(actions.resetOrderStatus())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ContactPage);

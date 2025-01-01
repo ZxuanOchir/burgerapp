@@ -2,12 +2,10 @@ import React, { useEffect, useState } from "react";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
 import Burger from "../../components/Burger";
 import Button from "../../components/General/Button";
-import Contact from "../ContactPage";
 import css from './style.module.css'
 import { connect } from "react-redux";
 
 const ShippingPage = (props) => {
-    const location = useLocation();
     const navigate = useNavigate();
 //     const [ingredients, setIngredients] = useState({
 //         salad: 0,
@@ -65,7 +63,7 @@ const ShippingPage = (props) => {
 
 const mapStateToProps = state => {
     return {
-        price : state.totalPrice
+        price : state.burgerReducer.totalPrice
     }
 }
 

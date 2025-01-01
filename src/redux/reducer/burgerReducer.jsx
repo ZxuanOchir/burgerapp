@@ -4,7 +4,7 @@ const initialState = {
         cheese :0,
         bacon : 0,
         meat : 0
-    },
+    }, // shuud object ==> array bolgood map ashiglaad el bolgonoor davtaj ashiglana.
     totalPrice : 1000,
     purchasing : false,
     ingredientNames : {

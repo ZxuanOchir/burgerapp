@@ -5,6 +5,7 @@ import Modal from "../../components/General/Modal";
 import OrderSummary from "../../components/OrderSummary";
 import withNavigate from "../../components/hoc/withNavigate";
 import Spinner from "../../components/General/Spinner";
+import css from "./style.module.css";
 
 
 // const INGREDIENT_PRICES = {
@@ -101,36 +102,31 @@ class BurgerPage extends Component {
     
     render() {
 
-        console.log('hey', this.props);
+        //console.log('hey', this.props);
         
 
         return (
             <div>
-                <Modal
+            <Modal
                     closeConfirmModal={this.closeConfirmModal} 
                     show={this.state.confirmOrder}
                     >
-                        {this.state.loading ? (
-                            <Spinner />
-                        ) : (
+                        
                 <OrderSummary
                     onCancel={this.closeConfirmModal}
                     onContinue={this.continueOrder}
                 />
-                )}
                     
-
-                </Modal>
+            </Modal>
                 <Burger />
 
                 <BuildControls
                     showConfirmModal = {this.showConfirmModal}
-                    ortsNemeh={this.props.burgeriinOrtsNem} 
-                    ortsHasah={this.props.burgeriinOrtsHas}/>
+                />
             </div>
         )
     }
 }
 
 
-export default (withNavigate(BurgerPage));
+export default withNavigate(BurgerPage); //withnavigate

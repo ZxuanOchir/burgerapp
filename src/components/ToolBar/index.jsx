@@ -15,5 +15,5 @@ const Toolbar = (props) => {
     </header>
   );
 }
-
+/* nemej display query bicih buildControls */
 export default Toolbar;

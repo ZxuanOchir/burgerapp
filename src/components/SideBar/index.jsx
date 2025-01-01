@@ -15,7 +15,6 @@ const SideBar = (props) => {
     return (
         <div>
             <Shadow show={props.showSideBar} darahad={props.toggleSideBar}/>
-
             <div onClick={props.toggleSideBar} className={classes.join(" ")}> 
                 <div className={css.Logo}>
                     <Logo />

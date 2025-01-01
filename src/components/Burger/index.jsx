@@ -11,7 +11,7 @@ const Burger = (props) => {
   
 
   let content = [];
-  items.map(el => {
+  items.map(el => { //items array.mapping
     for(let i = 0; i < el[1]; i++)
     content.push(<BurgerIngredient  key={`${el[0]}${i + 1}`} type={el[0]}/>)
   })
@@ -30,7 +30,7 @@ const Burger = (props) => {
 
 const mapStateToProps = state => {
   return { 
-    orts : state.ingredients
+    orts : state.burgerReducer.ingredients
   };
 };
 

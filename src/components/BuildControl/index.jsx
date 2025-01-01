@@ -7,10 +7,11 @@ const BuildControl = (props) => {
             <div className={css.Label}>{props.orts}</div>
             <button disabled={props.disabled[props.type]} 
                     className={css.Less} 
-                    onClick={()=>props.ortsHasah(props.type)}>Хасах
+                    onClick={()=>props.ortsHasah(props.type)}>Хасах {/*annoniomus function */}
             </button>
             <button className={css.More} onClick={()=>props.ortsNemeh(props.type)}>Нэмэх</button>
         </div>
+        
     )
 }
 
